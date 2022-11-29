@@ -91,6 +91,7 @@
             "source": {
               "type": "query",
               "query": [
+                "/* CIG_QOV table added from iBI */",
                 "select ",
                 "a.[Configuration],",
                 "a.[IPConfigurationID],",
@@ -114,7 +115,8 @@
               {
                 "name": "QueryEditorSerialization",
                 "value": [
-                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>select ",
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>/* CIG_QOV table added from iBI */",
+                  "select ",
                   "a.[Configuration],",
                   "a.[IPConfigurationID],",
                   "a.[is_deleted],",
@@ -139,6 +141,7 @@
           {
             "name": "_TM_ExtProp_QueryDefinition",
             "value": [
+              "/* CIG_QOV table added from iBI */",
               "select ",
               "a.[Configuration],",
               "a.[IPConfigurationID],",
@@ -164,7 +167,8 @@
           {
             "name": "QueryEditorSerialization",
             "value": [
-              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>select ",
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>/* CIG_QOV table added from iBI */",
+              "select ",
               "a.[Configuration],",
               "a.[IPConfigurationID],",
               "a.[is_deleted],",

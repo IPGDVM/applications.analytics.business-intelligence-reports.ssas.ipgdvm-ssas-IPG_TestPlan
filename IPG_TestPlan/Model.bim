@@ -91,7 +91,7 @@
             "source": {
               "type": "query",
               "query": [
-                "/* new comment from kelly */",
+                "/* Updated Again */",
                 "select ",
                 "a.[Configuration],",
                 "a.[IPConfigurationID],",
@@ -115,7 +115,7 @@
               {
                 "name": "QueryEditorSerialization",
                 "value": [
-                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>/* new comment from kelly */",
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>/* Updated Again */",
                   "select ",
                   "a.[Configuration],",
                   "a.[IPConfigurationID],",
@@ -141,7 +141,7 @@
           {
             "name": "_TM_ExtProp_QueryDefinition",
             "value": [
-              "/* new comment from kelly */",
+              "/* Updated Again */",
               "select ",
               "a.[Configuration],",
               "a.[IPConfigurationID],",
@@ -167,7 +167,7 @@
           {
             "name": "QueryEditorSerialization",
             "value": [
-              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>/* new comment from kelly */",
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>/* Updated Again */",
               "select ",
               "a.[Configuration],",
               "a.[IPConfigurationID],",

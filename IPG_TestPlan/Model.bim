@@ -1,0 +1,1471 @@
+{
+  "name": "SemanticModel",
+  "compatibilityLevel": 1400,
+  "model": {
+    "culture": "en-US",
+    "dataSources": [
+      {
+        "name": "iBI",
+        "connectionString": "Provider=MSDASQL;Persist Security Info=False;DSN=iBI DaaS",
+        "impersonationMode": "impersonateServiceAccount",
+        "annotations": [
+          {
+            "name": "ConnectionEditUISource",
+            "value": "Others"
+          }
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "name": "CIG_QOV",
+        "columns": [
+          {
+            "name": "Configuration",
+            "dataType": "string",
+            "sourceColumn": "Configuration",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "IPConfigurationID",
+            "dataType": "int64",
+            "sourceColumn": "IPConfigurationID",
+            "sourceProviderType": "BigInt"
+          },
+          {
+            "name": "is_deleted",
+            "dataType": "boolean",
+            "sourceColumn": "is_deleted",
+            "formatString": "\"TRUE\";\"TRUE\";\"FALSE\"",
+            "sourceProviderType": "Boolean"
+          },
+          {
+            "name": "Milestone",
+            "dataType": "string",
+            "sourceColumn": "Milestone",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "owner",
+            "dataType": "string",
+            "sourceColumn": "owner",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "Val_done",
+            "dataType": "double",
+            "sourceColumn": "Val_done",
+            "sourceProviderType": "Decimal"
+          },
+          {
+            "name": "Val_Planned",
+            "dataType": "double",
+            "sourceColumn": "Val_Planned",
+            "sourceProviderType": "Decimal"
+          },
+          {
+            "name": "Ww",
+            "dataType": "int64",
+            "sourceColumn": "Ww",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "type": "calculated",
+            "name": "val_%_capped",
+            "dataType": "double",
+            "isDataTypeInferred": true,
+            "expression": "IFERROR(if([Val_done]/[Val_Planned] > 1, 100, ROUND([Val_done]/[Val_Planned]*100, 2) ), 0)"
+          },
+          {
+            "type": "calculated",
+            "name": "val_%",
+            "dataType": "double",
+            "isDataTypeInferred": true,
+            "expression": "IFERROR(ROUND([Val_done]/[Val_Planned]*100, 2), 0)"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "CIG_QOV",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "select ",
+                "a.[Configuration],",
+                "a.[IPConfigurationID],",
+                "a.[is_deleted],",
+                "a.[Milestone],",
+                "a.[owner],",
+                "a.[Val_done],",
+                "a.[Val_Planned],",
+                "a.[Ww]",
+                "from",
+                "IPG_CIG_QOV a",
+                "left join",
+                "[V_IPG_CARBON_IPCONFIGURATION] carbon",
+                "on a.IPConfigurationID = carbon.IPConfigurationID",
+                "where carbon.[IsClosed] = 'N'",
+                "and carbon.[Org] = 'IPG'"
+              ],
+              "dataSource": "iBI"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>select ",
+                  "a.[Configuration],",
+                  "a.[IPConfigurationID],",
+                  "a.[is_deleted],",
+                  "a.[Milestone],",
+                  "a.[owner],",
+                  "a.[Val_done],",
+                  "a.[Val_Planned],",
+                  "a.[Ww]",
+                  "from",
+                  "IPG_CIG_QOV a",
+                  "left join",
+                  "[V_IPG_CARBON_IPCONFIGURATION] carbon",
+                  "on a.IPConfigurationID = carbon.IPConfigurationID",
+                  "where carbon.[IsClosed] = 'N'",
+                  "and carbon.[Org] = 'IPG'</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "select ",
+              "a.[Configuration],",
+              "a.[IPConfigurationID],",
+              "a.[is_deleted],",
+              "a.[Milestone],",
+              "a.[owner],",
+              "a.[Val_done],",
+              "a.[Val_Planned],",
+              "a.[Ww]",
+              "from",
+              "IPG_CIG_QOV a",
+              "left join",
+              "[V_IPG_CARBON_IPCONFIGURATION] carbon",
+              "on a.IPConfigurationID = carbon.IPConfigurationID",
+              "where carbon.[IsClosed] = 'N'",
+              "and carbon.[Org] = 'IPG'"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "CIG_QOV"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>select ",
+              "a.[Configuration],",
+              "a.[IPConfigurationID],",
+              "a.[is_deleted],",
+              "a.[Milestone],",
+              "a.[owner],",
+              "a.[Val_done],",
+              "a.[Val_Planned],",
+              "a.[Ww]",
+              "from",
+              "IPG_CIG_QOV a",
+              "left join",
+              "[V_IPG_CARBON_IPCONFIGURATION] carbon",
+              "on a.IPConfigurationID = carbon.IPConfigurationID",
+              "where carbon.[IsClosed] = 'N'",
+              "and carbon.[Org] = 'IPG'</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "PVIM",
+        "columns": [
+          {
+            "name": "IPFamily",
+            "dataType": "string",
+            "sourceColumn": "IPFamily",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "ww_submitted_date",
+            "dataType": "string",
+            "sourceColumn": "ww_submitted_date",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "status",
+            "dataType": "string",
+            "sourceColumn": "status",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "release_affected",
+            "dataType": "string",
+            "sourceColumn": "release_affected",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "release_deployed",
+            "dataType": "string",
+            "sourceColumn": "release_deployed",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "revision",
+            "dataType": "string",
+            "sourceColumn": "revision",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "required_by_milestone",
+            "dataType": "string",
+            "sourceColumn": "required_by_milestone",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "feature_staging",
+            "dataType": "string",
+            "sourceColumn": "feature_staging",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "val_environment",
+            "dataType": "string",
+            "sourceColumn": "val_environment",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "family",
+            "dataType": "string",
+            "sourceColumn": "family",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "system",
+            "dataType": "string",
+            "sourceColumn": "system",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "owner_team",
+            "dataType": "string",
+            "sourceColumn": "owner_team",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "val_teams",
+            "dataType": "string",
+            "sourceColumn": "val_teams",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "hierarchy_path",
+            "dataType": "string",
+            "sourceColumn": "hierarchy_path",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "tag",
+            "dataType": "string",
+            "sourceColumn": "tag",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "free_tag_1",
+            "dataType": "string",
+            "sourceColumn": "free_tag_1",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "free_tag_2",
+            "dataType": "string",
+            "sourceColumn": "free_tag_2",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "free_tag_3",
+            "dataType": "string",
+            "sourceColumn": "free_tag_3",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "ip",
+            "dataType": "string",
+            "sourceColumn": "ip",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "ip_category",
+            "dataType": "string",
+            "sourceColumn": "ip_category",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "type",
+            "dataType": "string",
+            "sourceColumn": "type",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "id",
+            "dataType": "int64",
+            "sourceColumn": "id",
+            "sourceProviderType": "BigInt"
+          },
+          {
+            "name": "title",
+            "dataType": "string",
+            "sourceColumn": "title",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "owner",
+            "dataType": "string",
+            "sourceColumn": "owner",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "priority",
+            "dataType": "string",
+            "sourceColumn": "priority",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "trend_end",
+            "dataType": "string",
+            "sourceColumn": "trend_end",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "eta_request_ww",
+            "dataType": "string",
+            "sourceColumn": "eta_request_ww",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "ww",
+            "dataType": "int64",
+            "sourceColumn": "ww",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "original_ww",
+            "dataType": "int64",
+            "sourceColumn": "original_ww",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "effort",
+            "dataType": "double",
+            "sourceColumn": "effort",
+            "sourceProviderType": "Decimal"
+          },
+          {
+            "name": "test_execution_query",
+            "dataType": "string",
+            "sourceColumn": "test_execution_query",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "actual_effort",
+            "dataType": "double",
+            "sourceColumn": "actual_effort",
+            "sourceProviderType": "Decimal"
+          },
+          {
+            "name": "reason",
+            "dataType": "string",
+            "sourceColumn": "reason",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "status_reason",
+            "dataType": "string",
+            "sourceColumn": "status_reason",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "event_name",
+            "dataType": "string",
+            "sourceColumn": "event_name",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "original_tcd",
+            "dataType": "string",
+            "sourceColumn": "original_tcd",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "blocked_id",
+            "dataType": "string",
+            "sourceColumn": "blocked_id",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "release",
+            "dataType": "string",
+            "sourceColumn": "release"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "PVIM",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "select ",
+                "glad.family as IPFamily,",
+                "a.ww_submitted_date,",
+                "a.status,",
+                "a.release,",
+                "a.release_affected,",
+                "a.[test_case.release_deployed] as release_deployed,",
+                "a.[test_case.revision] as revision,",
+                "a.[test_case.required_by_milestone] as required_by_milestone,",
+                "a.[test_case.feature_staging] as feature_staging,",
+                "a.[test_case.val_environment] as val_environment,",
+                "a.family,",
+                "a.[test_case.system] as system,",
+                "a.[test_case.owner_team] as owner_team,",
+                "a.[test_case.val_teams] as val_teams,",
+                "a.hierarchy_path,",
+                "a.tag,",
+                "a.[test_case.free_tag_1] as free_tag_1,",
+                "a.[test_case.free_tag_2] as free_tag_2,",
+                "a.[test_case.free_tag_3] as free_tag_3,",
+                "a.[test_case.ip] as ip,",
+                "a.[test_case.ip_category] as ip_category,",
+                "a.[test_case.type] as type,",
+                "a.id,",
+                "a.title,",
+                "a.owner,",
+                "a.priority,",
+                "a.[test_case.trend_end] as trend_end,",
+                "a.[test_case.eta_request_ww] as eta_request_ww,",
+                "a.ww,",
+                "a.ww as original_ww,",
+                "a.[test_case.effort] as effort,",
+                "a.[test_case.test_execution_query] as test_execution_query,",
+                "a.[test_case.actual_effort] as actual_effort,",
+                "a.reason,",
+                "a.status_reason,",
+                "a.[test_case.event_name] as event_name,",
+                "a.[test_case.original_tcd] as original_tcd,",
+                "a.[server.test_case.blocked_id] as blocked_id",
+                "from ",
+                "[v_ipg_family_gladius] glad",
+                "left join [dw.server.test_case] a",
+                "on glad.old_family = a.family",
+                "",
+                "where a.status <> 'rejected'",
+                "     and a.status <> 'future'",
+                "and a.ww >= datepart(ww,getutcdate()) - 13",
+                "and a.ww_submitted_date>=201900 ",
+                "",
+                "and (a.[test_case.trash] is null or a.[test_case.trash] = '')"
+              ],
+              "dataSource": "iBI"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>select ",
+                  "glad.family as IPFamily,",
+                  "a.ww_submitted_date,",
+                  "a.status,",
+                  "a.release,",
+                  "a.release_affected,",
+                  "a.[test_case.release_deployed] as release_deployed,",
+                  "a.[test_case.revision] as revision,",
+                  "a.[test_case.required_by_milestone] as required_by_milestone,",
+                  "a.[test_case.feature_staging] as feature_staging,",
+                  "a.[test_case.val_environment] as val_environment,",
+                  "a.family,",
+                  "a.[test_case.system] as system,",
+                  "a.[test_case.owner_team] as owner_team,",
+                  "a.[test_case.val_teams] as val_teams,",
+                  "a.hierarchy_path,",
+                  "a.tag,",
+                  "a.[test_case.free_tag_1] as free_tag_1,",
+                  "a.[test_case.free_tag_2] as free_tag_2,",
+                  "a.[test_case.free_tag_3] as free_tag_3,",
+                  "a.[test_case.ip] as ip,",
+                  "a.[test_case.ip_category] as ip_category,",
+                  "a.[test_case.type] as type,",
+                  "a.id,",
+                  "a.title,",
+                  "a.owner,",
+                  "a.priority,",
+                  "a.[test_case.trend_end] as trend_end,",
+                  "a.[test_case.eta_request_ww] as eta_request_ww,",
+                  "a.ww,",
+                  "a.ww as original_ww,",
+                  "a.[test_case.effort] as effort,",
+                  "a.[test_case.test_execution_query] as test_execution_query,",
+                  "a.[test_case.actual_effort] as actual_effort,",
+                  "a.reason,",
+                  "a.status_reason,",
+                  "a.[test_case.event_name] as event_name,",
+                  "a.[test_case.original_tcd] as original_tcd,",
+                  "a.[server.test_case.blocked_id] as blocked_id",
+                  "from ",
+                  "[v_ipg_family_gladius] glad",
+                  "left join [dw.server.test_case] a",
+                  "on glad.old_family = a.family",
+                  "",
+                  "where a.status <> 'rejected'",
+                  "     and a.status <> 'future'",
+                  "and a.ww >= datepart(ww,getutcdate()) - 13",
+                  "and a.ww_submitted_date>=201900 ",
+                  "",
+                  "and (a.[test_case.trash] is null or a.[test_case.trash] = '')</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "select ",
+              "glad.family as IPFamily,",
+              "a.ww_submitted_date,",
+              "a.status,",
+              "a.release,",
+              "a.release_affected,",
+              "a.[test_case.release_deployed] as release_deployed,",
+              "a.[test_case.revision] as revision,",
+              "a.[test_case.required_by_milestone] as required_by_milestone,",
+              "a.[test_case.feature_staging] as feature_staging,",
+              "a.[test_case.val_environment] as val_environment,",
+              "a.family,",
+              "a.[test_case.system] as system,",
+              "a.[test_case.owner_team] as owner_team,",
+              "a.[test_case.val_teams] as val_teams,",
+              "a.hierarchy_path,",
+              "a.tag,",
+              "a.[test_case.free_tag_1] as free_tag_1,",
+              "a.[test_case.free_tag_2] as free_tag_2,",
+              "a.[test_case.free_tag_3] as free_tag_3,",
+              "a.[test_case.ip] as ip,",
+              "a.[test_case.ip_category] as ip_category,",
+              "a.[test_case.type] as type,",
+              "a.id,",
+              "a.title,",
+              "a.owner,",
+              "a.priority,",
+              "a.[test_case.trend_end] as trend_end,",
+              "a.[test_case.eta_request_ww] as eta_request_ww,",
+              "a.ww,",
+              "a.ww as original_ww,",
+              "a.[test_case.effort] as effort,",
+              "a.[test_case.test_execution_query] as test_execution_query,",
+              "a.[test_case.actual_effort] as actual_effort,",
+              "a.reason,",
+              "a.status_reason,",
+              "a.[test_case.event_name] as event_name,",
+              "a.[test_case.original_tcd] as original_tcd,",
+              "a.[server.test_case.blocked_id] as blocked_id",
+              "from ",
+              "[v_ipg_family_gladius] glad",
+              "left join [dw.server.test_case] a",
+              "on glad.old_family = a.family",
+              "",
+              "where a.status <> 'rejected'",
+              "     and a.status <> 'future'",
+              "and a.ww >= datepart(ww,getutcdate()) - 13",
+              "and a.ww_submitted_date>=201900 ",
+              "",
+              "and (a.[test_case.trash] is null or a.[test_case.trash] = '')"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "PVIM"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>select ",
+              "glad.family as IPFamily,",
+              "a.ww_submitted_date,",
+              "a.status,",
+              "a.release,",
+              "a.release_affected,",
+              "a.[test_case.release_deployed] as release_deployed,",
+              "a.[test_case.revision] as revision,",
+              "a.[test_case.required_by_milestone] as required_by_milestone,",
+              "a.[test_case.feature_staging] as feature_staging,",
+              "a.[test_case.val_environment] as val_environment,",
+              "a.family,",
+              "a.[test_case.system] as system,",
+              "a.[test_case.owner_team] as owner_team,",
+              "a.[test_case.val_teams] as val_teams,",
+              "a.hierarchy_path,",
+              "a.tag,",
+              "a.[test_case.free_tag_1] as free_tag_1,",
+              "a.[test_case.free_tag_2] as free_tag_2,",
+              "a.[test_case.free_tag_3] as free_tag_3,",
+              "a.[test_case.ip] as ip,",
+              "a.[test_case.ip_category] as ip_category,",
+              "a.[test_case.type] as type,",
+              "a.id,",
+              "a.title,",
+              "a.owner,",
+              "a.priority,",
+              "a.[test_case.trend_end] as trend_end,",
+              "a.[test_case.eta_request_ww] as eta_request_ww,",
+              "a.ww,",
+              "a.ww as original_ww,",
+              "a.[test_case.effort] as effort,",
+              "a.[test_case.test_execution_query] as test_execution_query,",
+              "a.[test_case.actual_effort] as actual_effort,",
+              "a.reason,",
+              "a.status_reason,",
+              "a.[test_case.event_name] as event_name,",
+              "a.[test_case.original_tcd] as original_tcd,",
+              "a.[server.test_case.blocked_id] as blocked_id",
+              "from ",
+              "[v_ipg_family_gladius] glad",
+              "left join [dw.server.test_case] a",
+              "on glad.old_family = a.family",
+              "",
+              "where a.status <> 'rejected'",
+              "     and a.status <> 'future'",
+              "and a.ww >= datepart(ww,getutcdate()) - 13",
+              "and a.ww_submitted_date>=201900 ",
+              "",
+              "and (a.[test_case.trash] is null or a.[test_case.trash] = '')</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "IPG_TestPlan",
+        "columns": [
+          {
+            "type": "calculatedTableColumn",
+            "name": "Configuration",
+            "dataType": "string",
+            "isNameInferred": true,
+            "isDataTypeInferred": true,
+            "sourceColumn": "[Configuration]"
+          },
+          {
+            "type": "calculatedTableColumn",
+            "name": "Val_Done",
+            "dataType": "double",
+            "isNameInferred": true,
+            "isDataTypeInferred": true,
+            "sourceColumn": "[Val_Done]"
+          },
+          {
+            "type": "calculatedTableColumn",
+            "name": "ww",
+            "dataType": "int64",
+            "isNameInferred": true,
+            "isDataTypeInferred": true,
+            "sourceColumn": "[ww]",
+            "formatString": "0"
+          },
+          {
+            "type": "calculatedTableColumn",
+            "name": "Val_Planned",
+            "dataType": "double",
+            "isNameInferred": true,
+            "isDataTypeInferred": true,
+            "sourceColumn": "[Val_Planned]"
+          },
+          {
+            "type": "calculatedTableColumn",
+            "name": "milestone",
+            "dataType": "string",
+            "isNameInferred": true,
+            "isDataTypeInferred": true,
+            "sourceColumn": "[milestone]"
+          },
+          {
+            "type": "calculated",
+            "name": "Val_%_done",
+            "dataType": "double",
+            "isDataTypeInferred": true,
+            "expression": "if(ISBLANK([Val_Planned]) || IPG_TestPlan[Val_Planned] = 0, blank(), if([Val_Done]>[Val_Planned], 100, ([Val_Done]/[Val_Planned]) * 100) )",
+            "formatString": "0.00"
+          },
+          {
+            "type": "calculated",
+            "name": "latest",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "expression": "if([ww] = CALCULATE(MAX(IPG_TestPlan[ww]), FILTER(IPG_TestPlan, IPG_TestPlan[Configuration] = EARLIER(IPG_TestPlan[Configuration]))), \"latest\", [ww]&\"\")"
+          },
+          {
+            "type": "calculatedTableColumn",
+            "name": "metric",
+            "dataType": "string",
+            "isNameInferred": true,
+            "isDataTypeInferred": true,
+            "sourceColumn": "[metric]"
+          },
+          {
+            "type": "calculated",
+            "name": "target",
+            "dataType": "double",
+            "isDataTypeInferred": true,
+            "expression": [
+              "if(isblank(IFERROR(LOOKUPVALUE(IPG_linear_target[target], IPG_linear_target[configuration], [Configuration], IPG_linear_target[ww], [ww], IPG_linear_target[metric], [metric]), 99)), ",
+              "IFERROR(LOOKUPVALUE(IPG_linear_target[target], IPG_linear_target[configuration], [Configuration], IPG_linear_target[is_first], 1, IPG_linear_target[metric], [metric]), 99),",
+              "IFERROR(LOOKUPVALUE(IPG_linear_target[target], IPG_linear_target[configuration], [Configuration], IPG_linear_target[ww], [ww], IPG_linear_target[metric], [metric]) , 99))",
+              "",
+              "",
+              "/*",
+              "if(ISBLANK([target_intrm]),",
+              "",
+              "if(isblank(LOOKUPVALUE(IPG_linear_target[target], IPG_linear_target[configuration], [Configuration], IPG_linear_target[is_first], 1, IPG_linear_target[metric], [metric])), 99, ",
+              "LOOKUPVALUE(IPG_linear_target[target], IPG_linear_target[configuration], [Configuration], IPG_linear_target[is_first], 1, IPG_linear_target[metric], [metric])),",
+              "[target_intrm]",
+              ")",
+              "*/"
+            ]
+          },
+          {
+            "type": "calculated",
+            "name": "color_category",
+            "dataType": "int64",
+            "isDataTypeInferred": true,
+            "expression": [
+              "if(ISBLANK(IPG_TestPlan[Val_%_done]), blank(), IF(ISBLANK([target]), ",
+              "",
+              "IF(99- [Val_%_done] < .03*99, 0, if(99  - [Val_%_done] < .1*99, 1, 2)), ",
+              "",
+              "",
+              "IF(ISBLANK([target]), BLANK(), IF([target] - [Val_%_done] < .03*[target], 0, if([target] - [Val_%_done] < .1*[target], 1, 2)))))"
+            ]
+          },
+          {
+            "type": "calculated",
+            "name": "target_intrm",
+            "dataType": "double",
+            "isDataTypeInferred": true,
+            "expression": "IFERROR(LOOKUPVALUE(IPG_linear_target[target], IPG_linear_target[configuration], [Configuration], IPG_linear_target[ww], [ww], IPG_linear_target[metric], [metric]),-1)"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "CalculatedTable 1",
+            "source": {
+              "type": "calculated",
+              "expression": [
+                "union (",
+                "",
+                "SELECTCOLUMNS(CIG_QOV, \"ww\", CIG_QOV[Ww], \"Configuration\", CIG_QOV[Configuration], \"Val_Done\", CIG_QOV[Val_done], \"Val_Planned\", [Val_Planned], \"milestone\", [Milestone], \"metric\", \"Validation Plan\"),",
+                "",
+                "SELECTCOLUMNS(HIP_Manual, \"ww\", HIP_Manual[Ww], \"Configuration\", HIP_Manual[cluster_or_ip], \"Val_Done\", [comp_val], \"Val_Planned\", 1, \"milestone\", [qov_type], \"metric\", HIP_Manual[qov_type]),",
+                "",
+                "SELECTCOLUMNS(SIP_Val_Plan_MDM, \"ww\", SIP_Val_Plan_MDM[Ww], \"Configuration\", SIP_Val_Plan_MDM[Configuration], \"Val_Done\",SIP_Val_Plan_MDM[val_done], \"Val_Planned\", SIP_Val_Plan_MDM[val_planned], \"milestone\", BLANK(), \"metric\", SIP_Val_Plan_MDM[Metric])",
+                "",
+                "",
+                ")"
+              ]
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "old_tbl",
+            "expression": "\"UNION(SELECTCOLUMNS(SUMMARIZE(PVIM, PVIM[release_affected], PVIM[ww], 'Done_Count',  calculate(COUNT(PVIM[id]), FILTER(pvim, PVIM[status] = 'complete')), 'Total_Count', calculate(COUNT(PVIM[id]), FILTER(pvim, PVIM[status] in {'complete', 'open', 'blocked'})) ), 'ww', [ww], 'Configuration', [release_affected], 'Val_Done', [Done_Count], 'Val_Planned', [Total_Count], 'milestone', BLANK()) , SELECTCOLUMNS(CIG_QOV, 'ww', CIG_QOV[Ww], 'Configuration', CIG_QOV[Configuration], 'Val_Done', CIG_QOV[Val_done], 'Val_planned', [Val_Planned], 'milestone', [Milestone]) )\""
+          }
+        ]
+      },
+      {
+        "name": "HIP_Manual",
+        "columns": [
+          {
+            "name": "ww",
+            "dataType": "int64",
+            "sourceColumn": "ww",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "group",
+            "dataType": "string",
+            "sourceColumn": "group",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "cluster_or_ip",
+            "dataType": "string",
+            "sourceColumn": "cluster_or_ip",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "qov_type",
+            "dataType": "string",
+            "sourceColumn": "qov_type",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "comp_val",
+            "dataType": "double",
+            "sourceColumn": "comp_val"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "HIP_Manual",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "/*",
+                "created by: Kelly Palma 2021ww44.5",
+                "aggregates the weighted average of validaiton plan from ibi manual HIP spreadsheet up o single validation score for each cluser_ip per ww",
+                "- 2021ww45: only look at newd ata entered (ignore stale/old data before 2021w42)",
+                "*/",
+                "select ",
+                "[group],",
+                "ww,",
+                "cluster_or_ip,",
+                "qov_type,",
+                "sum(comp_weighted) as comp_val",
+                "from",
+                "(",
+                "\tselect",
+                "\t[group],",
+                "\tww,",
+                "\tcluster_or_ip,",
+                "\tqov_type,",
+                "\tcomp_val, component_weight,",
+                "\t[comp_val] * component_weight as comp_weighted",
+                "\tfrom",
+                "\t(",
+                "\t\tselect ",
+                "\t\t[group],",
+                "\t\tww,",
+                "\t\tcluster_or_ip,",
+                "\t\tqov_type,",
+                "\t\tcomponent,",
+                "\t\tmax(component_weight) as component_weight,",
+                "\t\tsum(sub_comp_val) as comp_val",
+                "\t\tfrom ",
+                "\t\t(",
+                "\t\t\tselect ",
+                "\t\t\tdistinct",
+                "\t\t\t[group],",
+                "\t\t\tww,",
+                "\t\t\tcluster_or_ip,",
+                "\t\t\tqov_type,",
+                "\t\t\tcomponent,",
+                "\t\t\tcomponent_weight,",
+                "\t\t\tsub_component,",
+                "\t\t\tsub_component_Weight,",
+                "\t\t\tvalue,",
+                "\t\t\t[value] * [sub_component_weight] as  sub_comp_val",
+                "\t\t\tfrom ",
+                "\t\t\tV_BM_IPG_QOV_V2",
+                "\t\t\twhere [group] = 'MIG'",
+                "\t\t\tand qov_type = 'Validation Plan'",
+                "\t\t\tand ww >= 202142",
+                "\t\t) comp",
+                "\t\tgroup by ",
+                "\t\t[group],",
+                "\t\tww,",
+                "\t\tcluster_or_ip,",
+                "\t\tqov_type,",
+                "\t\tcomponent",
+                "\t) qov_type",
+                ") val_all",
+                "group by ",
+                "[group],",
+                "ww,",
+                "cluster_or_ip,",
+                "qov_type"
+              ],
+              "dataSource": "iBI"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>/*",
+                  "created by: Kelly Palma 2021ww44.5",
+                  "aggregates the weighted average of validaiton plan from ibi manual HIP spreadsheet up o single validation score for each cluser_ip per ww",
+                  "- 2021ww45: only look at newd ata entered (ignore stale/old data before 2021w42)",
+                  "*/",
+                  "select ",
+                  "[group],",
+                  "ww,",
+                  "cluster_or_ip,",
+                  "qov_type,",
+                  "sum(comp_weighted) as comp_val",
+                  "from",
+                  "(",
+                  "\tselect",
+                  "\t[group],",
+                  "\tww,",
+                  "\tcluster_or_ip,",
+                  "\tqov_type,",
+                  "\tcomp_val, component_weight,",
+                  "\t[comp_val] * component_weight as comp_weighted",
+                  "\tfrom",
+                  "\t(",
+                  "\t\tselect ",
+                  "\t\t[group],",
+                  "\t\tww,",
+                  "\t\tcluster_or_ip,",
+                  "\t\tqov_type,",
+                  "\t\tcomponent,",
+                  "\t\tmax(component_weight) as component_weight,",
+                  "\t\tsum(sub_comp_val) as comp_val",
+                  "\t\tfrom ",
+                  "\t\t(",
+                  "\t\t\tselect ",
+                  "\t\t\tdistinct",
+                  "\t\t\t[group],",
+                  "\t\t\tww,",
+                  "\t\t\tcluster_or_ip,",
+                  "\t\t\tqov_type,",
+                  "\t\t\tcomponent,",
+                  "\t\t\tcomponent_weight,",
+                  "\t\t\tsub_component,",
+                  "\t\t\tsub_component_Weight,",
+                  "\t\t\tvalue,",
+                  "\t\t\t[value] * [sub_component_weight] as  sub_comp_val",
+                  "\t\t\tfrom ",
+                  "\t\t\tV_BM_IPG_QOV_V2",
+                  "\t\t\twhere [group] = 'MIG'",
+                  "\t\t\tand qov_type = 'Validation Plan'",
+                  "\t\t\tand ww >= 202142",
+                  "\t\t) comp",
+                  "\t\tgroup by ",
+                  "\t\t[group],",
+                  "\t\tww,",
+                  "\t\tcluster_or_ip,",
+                  "\t\tqov_type,",
+                  "\t\tcomponent",
+                  "\t) qov_type",
+                  ") val_all",
+                  "group by ",
+                  "[group],",
+                  "ww,",
+                  "cluster_or_ip,",
+                  "qov_type</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "/*",
+              "created by: Kelly Palma 2021ww44.5",
+              "aggregates the weighted average of validaiton plan from ibi manual HIP spreadsheet up o single validation score for each cluser_ip per ww",
+              "- 2021ww45: only look at newd ata entered (ignore stale/old data before 2021w42)",
+              "*/",
+              "select ",
+              "[group],",
+              "ww,",
+              "cluster_or_ip,",
+              "qov_type,",
+              "sum(comp_weighted) as comp_val",
+              "from",
+              "(",
+              "\tselect",
+              "\t[group],",
+              "\tww,",
+              "\tcluster_or_ip,",
+              "\tqov_type,",
+              "\tcomp_val, component_weight,",
+              "\t[comp_val] * component_weight as comp_weighted",
+              "\tfrom",
+              "\t(",
+              "\t\tselect ",
+              "\t\t[group],",
+              "\t\tww,",
+              "\t\tcluster_or_ip,",
+              "\t\tqov_type,",
+              "\t\tcomponent,",
+              "\t\tmax(component_weight) as component_weight,",
+              "\t\tsum(sub_comp_val) as comp_val",
+              "\t\tfrom ",
+              "\t\t(",
+              "\t\t\tselect ",
+              "\t\t\tdistinct",
+              "\t\t\t[group],",
+              "\t\t\tww,",
+              "\t\t\tcluster_or_ip,",
+              "\t\t\tqov_type,",
+              "\t\t\tcomponent,",
+              "\t\t\tcomponent_weight,",
+              "\t\t\tsub_component,",
+              "\t\t\tsub_component_Weight,",
+              "\t\t\tvalue,",
+              "\t\t\t[value] * [sub_component_weight] as  sub_comp_val",
+              "\t\t\tfrom ",
+              "\t\t\tV_BM_IPG_QOV_V2",
+              "\t\t\twhere [group] = 'MIG'",
+              "\t\t\tand qov_type = 'Validation Plan'",
+              "\t\t\tand ww >= 202142",
+              "\t\t) comp",
+              "\t\tgroup by ",
+              "\t\t[group],",
+              "\t\tww,",
+              "\t\tcluster_or_ip,",
+              "\t\tqov_type,",
+              "\t\tcomponent",
+              "\t) qov_type",
+              ") val_all",
+              "group by ",
+              "[group],",
+              "ww,",
+              "cluster_or_ip,",
+              "qov_type"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "HIP_Manual"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>/*",
+              "created by: Kelly Palma 2021ww44.5",
+              "aggregates the weighted average of validaiton plan from ibi manual HIP spreadsheet up o single validation score for each cluser_ip per ww",
+              "- 2021ww45: only look at newd ata entered (ignore stale/old data before 2021w42)",
+              "*/",
+              "select ",
+              "[group],",
+              "ww,",
+              "cluster_or_ip,",
+              "qov_type,",
+              "sum(comp_weighted) as comp_val",
+              "from",
+              "(",
+              "\tselect",
+              "\t[group],",
+              "\tww,",
+              "\tcluster_or_ip,",
+              "\tqov_type,",
+              "\tcomp_val, component_weight,",
+              "\t[comp_val] * component_weight as comp_weighted",
+              "\tfrom",
+              "\t(",
+              "\t\tselect ",
+              "\t\t[group],",
+              "\t\tww,",
+              "\t\tcluster_or_ip,",
+              "\t\tqov_type,",
+              "\t\tcomponent,",
+              "\t\tmax(component_weight) as component_weight,",
+              "\t\tsum(sub_comp_val) as comp_val",
+              "\t\tfrom ",
+              "\t\t(",
+              "\t\t\tselect ",
+              "\t\t\tdistinct",
+              "\t\t\t[group],",
+              "\t\t\tww,",
+              "\t\t\tcluster_or_ip,",
+              "\t\t\tqov_type,",
+              "\t\t\tcomponent,",
+              "\t\t\tcomponent_weight,",
+              "\t\t\tsub_component,",
+              "\t\t\tsub_component_Weight,",
+              "\t\t\tvalue,",
+              "\t\t\t[value] * [sub_component_weight] as  sub_comp_val",
+              "\t\t\tfrom ",
+              "\t\t\tV_BM_IPG_QOV_V2",
+              "\t\t\twhere [group] = 'MIG'",
+              "\t\t\tand qov_type = 'Validation Plan'",
+              "\t\t\tand ww >= 202142",
+              "\t\t) comp",
+              "\t\tgroup by ",
+              "\t\t[group],",
+              "\t\tww,",
+              "\t\tcluster_or_ip,",
+              "\t\tqov_type,",
+              "\t\tcomponent",
+              "\t) qov_type",
+              ") val_all",
+              "group by ",
+              "[group],",
+              "ww,",
+              "cluster_or_ip,",
+              "qov_type</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "IPG_linear_target",
+        "columns": [
+          {
+            "name": "ww",
+            "dataType": "int64",
+            "sourceColumn": "ww",
+            "formatString": "0",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "id",
+            "dataType": "int64",
+            "sourceColumn": "id",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Org",
+            "dataType": "string",
+            "sourceColumn": "Org",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "ipType",
+            "dataType": "string",
+            "sourceColumn": "ipType",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "metric",
+            "dataType": "string",
+            "sourceColumn": "metric",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "configuration",
+            "dataType": "string",
+            "sourceColumn": "configuration",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "target",
+            "dataType": "double",
+            "sourceColumn": "target",
+            "sourceProviderType": "Decimal"
+          },
+          {
+            "name": "next_target",
+            "dataType": "string",
+            "sourceColumn": "next_target",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "max_product_target_ww",
+            "dataType": "int64",
+            "sourceColumn": "max_product_target_ww",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "cur_id",
+            "dataType": "int64",
+            "sourceColumn": "cur_id",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "type": "calculated",
+            "name": "is_first",
+            "dataType": "int64",
+            "isDataTypeInferred": true,
+            "expression": "IF([ww] = CALCULATE(min([ww]), FILTER(IPG_linear_target, IPG_linear_target[configuration] = EARLIEST(IPG_linear_target[configuration]) && IPG_linear_target[metric] = EARLIEST(IPG_linear_target[metric]))), 1, 0)"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "IPG_linear_target",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "select distinct * from ",
+                "CACHED_IPG_METRIC_TARGET_LINEAR"
+              ],
+              "dataSource": "iBI"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>select distinct * from ",
+                  "CACHED_IPG_METRIC_TARGET_LINEAR</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "select distinct * from ",
+              "CACHED_IPG_METRIC_TARGET_LINEAR"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "IPG_linear_target"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>select distinct * from ",
+              "CACHED_IPG_METRIC_TARGET_LINEAR</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "validaiton_field_pivot",
+        "columns": [
+          {
+            "name": "domain",
+            "dataType": "string",
+            "sourceColumn": "domain",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "item",
+            "dataType": "string",
+            "sourceColumn": "item",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "iptype_applicable",
+            "dataType": "string",
+            "sourceColumn": "iptype_applicable",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "ibi_updated_date",
+            "dataType": "dateTime",
+            "sourceColumn": "ibi_updated_date",
+            "formatString": "General Date",
+            "sourceProviderType": "Date"
+          },
+          {
+            "name": "item_order",
+            "dataType": "string",
+            "sourceColumn": "item_order"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "validaiton_field_pivot",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "select * from ",
+                "ipg_ops_manual_list_items_mdm",
+                "where domain = 'validation'"
+              ],
+              "dataSource": "iBI"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>select * from ",
+                  "ipg_ops_manual_list_items_mdm",
+                  "where domain = 'validation'</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "select * from ",
+              "ipg_ops_manual_list_items_mdm",
+              "where domain = 'validation'"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "validaiton_field_pivot"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>select * from ",
+              "ipg_ops_manual_list_items_mdm",
+              "where domain = 'validation'</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "SIP_Val_Plan_MDM",
+        "columns": [
+          {
+            "name": "Category",
+            "dataType": "string",
+            "sourceColumn": "Category",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "Metric",
+            "dataType": "string",
+            "sourceColumn": "Metric",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "IPFamily",
+            "dataType": "string",
+            "sourceColumn": "IPFamily",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "Configuration",
+            "dataType": "string",
+            "sourceColumn": "Configuration",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "Configuration_id",
+            "dataType": "string",
+            "sourceColumn": "Configuration_id",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "val_plan_percent",
+            "dataType": "string",
+            "sourceColumn": "val_plan_percent",
+            "sourceProviderType": "VarChar"
+          },
+          {
+            "name": "ibi_updated_date",
+            "dataType": "dateTime",
+            "sourceColumn": "ibi_updated_date",
+            "formatString": "General Date",
+            "sourceProviderType": "Date"
+          },
+          {
+            "type": "calculated",
+            "name": "ww",
+            "dataType": "int64",
+            "isDataTypeInferred": false,
+            "expression": "year([ibi_updated_date]) & if(WEEKNUM([ibi_updated_date]) < 10, \"0\", \"\") & WEEKNUM([ibi_updated_date])"
+          },
+          {
+            "type": "calculated",
+            "name": "val_planned",
+            "dataType": "int64",
+            "isDataTypeInferred": true,
+            "expression": "100"
+          },
+          {
+            "type": "calculated",
+            "name": "val_done",
+            "dataType": "double",
+            "isDataTypeInferred": true,
+            "expression": "IFERROR(if(VALUE([val_plan_percent]) < 1, VALUE([val_plan_percent]) * 100, value([val_plan_percent])), blank())"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "SIP_Val_Plan_MDM",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": [
+                "select * From ",
+                "ipg_val_plan_mdm",
+                "where",
+                "val_plan_percent is not null and val_plan_percent not in ('')"
+              ],
+              "dataSource": "iBI"
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>select * From ",
+                  "ipg_val_plan_mdm",
+                  "where",
+                  "val_plan_percent is not null and val_plan_percent not in ('')</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": [
+              "select * From ",
+              "ipg_val_plan_mdm",
+              "where",
+              "val_plan_percent is not null and val_plan_percent not in ('')"
+            ]
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "SIP_Val_Plan_MDM"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>select * From ",
+              "ipg_val_plan_mdm",
+              "where",
+              "val_plan_percent is not null and val_plan_percent not in ('')</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      }
+    ],
+    "roles": [
+      {
+        "name": "Developers",
+        "modelPermission": "administrator",
+        "members": [
+          {
+            "memberName": "AMR\\IPG_Dashboard_Developers",
+            "memberId": "S-1-5-21-725345543-602162358-527237240-4603422"
+          }
+        ]
+      },
+      {
+        "name": "SuperUsers",
+        "modelPermission": "readRefresh",
+        "members": [
+          {
+            "memberName": "AMR\\IPG_Dashboard_SuperUsers",
+            "memberId": "S-1-5-21-725345543-602162358-527237240-4603439"
+          }
+        ]
+      },
+      {
+        "name": "Users",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "AMR\\IPG_Dashboard_Users",
+            "memberId": "S-1-5-21-725345543-602162358-527237240-4603440"
+          }
+        ]
+      }
+    ],
+    "annotations": [
+      {
+        "name": "ClientCompatibilityLevel",
+        "value": "500"
+      }
+    ]
+  },
+  "id": "SemanticModel"
+}
